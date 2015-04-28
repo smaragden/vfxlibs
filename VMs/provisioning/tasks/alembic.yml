@@ -1,0 +1,6 @@
+---
+- name: Alembic | Download Boost 
+  get_url: url=https://github.com/alembic/alembic/archive/1.5.8.tar.gz dest={{prefix_root}}/SOURCES/alembic-1.5.8.tar.gz
+
+- name: Alembic | Extract Alembic Source
+  unarchive: src="{{prefix_root}}/SOURCES/alembic-1.5.8.tar.gz" dest="{{prefix_root}}/SOURCES/" copy=no creates="{{prefix_root}}/SOURCES/alembic-1.5.8"

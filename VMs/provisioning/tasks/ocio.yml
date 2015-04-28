@@ -1,0 +1,22 @@
+---
+- name: OCIO | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - libjpeg-turbo-devel
+    - libjpeg-turbo-static
+    - libtiff-devel
+    - libtiff-static
+    - libpng-devel
+    - libpng-static
+    - glew-devel
+    - freeglut-devel
+
+- name: OCIO | Download OCIO 
+  get_url: url=https://github.com/imageworks/OpenColorIO/archive/v1.0.9.tar.gz dest={{prefix_root}}/SOURCES/ocio-1.0.9.tar.gz
+
+- name: OCIO | Extract OCIO Source
+  unarchive: src="{{prefix_root}}/SOURCES/ocio-1.0.9.tar.gz" dest="{{prefix_root}}/SOURCES" copy=no creates="{{prefix_root}}/SOURCES/OpenColorIO-1.0.9"
+
+- name: OCIO | Build OCIO
+  script: files/build_ocio.sh "{{prefix_root}}/SOURCES/OpenColorIO-1.0.9" "{{prefix_root}}/BUILDS/CY2015/ocio/1.0.9" OFF ON creates="{{prefix_root}}/BUILDS/CY2015/ocio/1.0.9"

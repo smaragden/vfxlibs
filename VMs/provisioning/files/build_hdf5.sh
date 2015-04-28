@@ -1,0 +1,1 @@
+./configure --prefix=/tmp/VFXREFPLAT/BUILDS/CY2015/hdf5/1.8.14 --with-pic --enable-production --disable-debug --enable-threadsafe --with-pthread=/usr/include,/usr/lib

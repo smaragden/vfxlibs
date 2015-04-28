@@ -1,0 +1,17 @@
+---
+- name: PySide | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - cmake
+    - rpmdevtools
+    - libxml2-devel
+    - libxslt-devel
+
+- name: PySide | Clone PySide Setup repo
+  git: repo=https://github.com/PySide/pyside-setup.git dest="{{prefix_root}}/SOURCES/pyside-setup" update=no
+
+- name: PySide | Build PySide
+  script: files/build_pyside.sh "{{prefix_root}}/SOURCES/pyside-setup" "{{prefix_root}}/BUILDS/CY2015/pyside/1.3.0" "{{prefix_root}}/BUILDS/CY2015/qt/4.8.5" creates="{{prefix_root}}/BUILDS/CY2015/pyside/1.3.0"
+

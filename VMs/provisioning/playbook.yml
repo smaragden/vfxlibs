@@ -1,0 +1,23 @@
+---
+- hosts: all
+  vars:
+    prefix_root: /tmp/VFXREFPLAT
+    python_version: "2.7.9"
+  tasks:
+    - name: Create Directory Structure
+      file: dest={{ item }} state=directory
+      with_items:
+        - "{{ prefix_root }}/SOURCES"
+        - "{{ prefix_root }}/BUILDS"
+    #- include: tasks/gcc.yml
+    #- include: tasks/python.yml
+    #- include: tasks/qt.yml
+    #- include: tasks/pyside.yml
+    #- include: tasks/boost.yml
+    #- include: tasks/openexr.yml
+    #- include: tasks/ocio.yml
+    #- include: tasks/oiio.yml
+    #- include: tasks/hdf5.yml
+    - include: tasks/alembic.yml
+    - name: Create Archive
+      command: tar czf /DATA/CY2015.tar.gz -C {{prefix_root}}/BUILDS/CY2015 .

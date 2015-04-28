@@ -1,0 +1,30 @@
+---
+- name: Python | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - wget
+    - curl
+    - zlib-devel
+    - sqlite-devel
+    - ncurses-devel
+    - readline-devel
+    - openssl-devel
+    - bzip2-devel
+    - tk-devel
+    - gdbm-devel
+    - db4-devel
+    - libpcap-devel
+    - xz-devel
+
+- name: Python | Download Python 
+  get_url: url="https://www.python.org/ftp/python/{{python_version}}/Python-{{python_version}}.tgz" dest="{{prefix_root}}/SOURCES/Python-{{python_version}}.tgz"
+
+- name: Python | Extract Python Source
+  unarchive: src="{{prefix_root}}/SOURCES/Python-{{python_version}}.tgz" dest="{{prefix_root}}/SOURCES/" copy=no creates="{{prefix_root}}/SOURCES/Python-{{python_version}}"
+
+#- name: Python | Copy build script
+#  template: src=files/build_python.sh.j2 dest="{{prefix_root}}/SOURCES/Python-{{python_version}}/build_python.sh"
+
+- name: Python | Build Python
+  script: files/build_python.sh "{{prefix_root}}/SOURCES/Python-{{python_version}}" "{{prefix_root}}/BUILDS/CY2015/python/{{python_version}}" creates="{{prefix_root}}/BUILDS/CY2015/python/{{python_version}}"

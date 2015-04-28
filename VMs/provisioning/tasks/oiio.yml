@@ -1,0 +1,24 @@
+---
+- name: OIIO | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - libjpeg-turbo-devel
+    - libjpeg-turbo-static
+    - libtiff-devel
+    - libtiff-static
+    - libpng-devel
+    - libpng-static
+    - glew-devel
+
+- name: OIIO | Download OIIO 
+  get_url: url=https://github.com/OpenImageIO/oiio/archive/Release-1.5.13.tar.gz dest={{prefix_root}}/SOURCES/oiio-1.5.13.tar.gz
+
+- name: OIIO | Extract OIIO Source
+  unarchive: src="{{prefix_root}}/SOURCES/oiio-1.5.13.tar.gz" dest="{{prefix_root}}/SOURCES" copy=no creates="{{prefix_root}}/SOURCES/oiio-Release-1.5.13"
+
+- name: OIIO | Build OIIO
+  script: files/build_oiio.sh "{{prefix_root}}/SOURCES/oiio-Release-1.5.13" "{{prefix_root}}/BUILDS/CY2015/oiio/1.5.13" ON OFF creates="{{prefix_root}}/BUILDS/CY2015/oiio/1.5.13"
+
+- name: OIIO | Build OCIO tools with OIIO
+  script: files/build_ocio.sh "{{prefix_root}}/SOURCES/OpenColorIO-1.0.9" "{{prefix_root}}/BUILDS/CY2015/ocio/1.0.9" ON ON

@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure(2) do |config|
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose = true
+    ansible.playbook = "provisioning/playbook.yml"
+    ansible.groups = {
+    "centos65" => ["centos65"],
+      "centos7" => ["centos7"],
+      "centos:children" => ["centos65", "centos7"]
+    }
+  end  
+
+  config.vm.define "centos65" do |centos65|
+    centos65.vm.box = "chef/centos-6.5"
+    centos65.vm.synced_folder "../DATA", "/DATA"
+  end
+
+  config.vm.define "centos7" do |centos7|
+    centos7.vm.box = "chef/centos-7.0"
+    centos7.vm.synced_folder "../DATA", "/DATA"
+  end
+
+end
+
+
