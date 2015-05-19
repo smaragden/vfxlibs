@@ -1,0 +1,18 @@
+---
+
+- name: GCC | Check existense
+  stat: path=/usr/bin/gcc
+  register: gcc
+
+- name: GCC | Create gcc rpm directory
+  file: dest=/tmp/centos7_gcc_rpms state=directory
+  when: not gcc.stat.exists
+
+- name: GCC | Download gcc rpm's
+  get_url: url={{ item }} dest="/tmp/centos7_gcc_rpms/"
+  with_items: gcc_rpms
+  when: not gcc.stat.exists
+
+- name: GCC | Install
+  shell: sudo yum localinstall -y /tmp/centos7_gcc_rpms/*.rpm
+  when: not gcc.stat.exists

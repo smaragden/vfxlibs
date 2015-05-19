@@ -1,0 +1,11 @@
+- name: tbb | Download tbb 
+  get_url: url={{tbb_url}} dest={{tbb_archive_path}}
+
+- name: tbb | Extract tbb Source
+  unarchive: src={{tbb_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{tbb_source_path}}
+
+- name: tbb | Copy TBB to prefix path
+  shell: "{{item}}"
+  with_items:
+    - "mkdir -p {{tbb_prefix_path}}"
+    - "cp -r {{tbb_source_path}}/* {{tbb_prefix_path}}"

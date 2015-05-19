@@ -1,0 +1,11 @@
+- name: Boost | Download Boost 
+  get_url: url={{boost_url}} dest={{boost_archive_path}}
+- name: Boost | Extract Boost Source
+  unarchive: src={{boost_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{boost_source_path}}
+
+- name: Boost | Build Boost
+  script: build_boost.sh creates={{boost_prefix_path}}
+  environment:
+    ROOT: "{{boost_source_path}}"
+    PREFIX: "{{boost_prefix_path}}"
+    PYTHON_PREFIX: "{{python_prefix_path}}"

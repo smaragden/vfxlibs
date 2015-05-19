@@ -1,0 +1,11 @@
+- name: HDF5 | Download HDF5 
+  get_url: url={{hdf5_url}} dest={{hdf5_archive_path}}
+
+- name: HDF5 | Extract HDF5 Source
+  unarchive: src={{hdf5_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{hdf5_source_path}}
+
+- name: "HDF5 | Build HDF5"
+  script: build_hdf5.sh creates={{hdf5_prefix_path}}
+  environment:
+    ROOT: "{{hdf5_source_path}}"
+    PREFIX: "{{hdf5_prefix_path}}"

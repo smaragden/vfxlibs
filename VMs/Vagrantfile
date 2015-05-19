@@ -8,12 +8,14 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "ansible" do |ansible|
-    ansible.verbose = true
     ansible.playbook = "provisioning/playbook.yml"
     ansible.groups = {
-    "centos65" => ["centos65"],
+      "centos65" => ["centos65"],
+      "centos65:vars" => { "os" => "centos65" },
       "centos7" => ["centos7"],
+      "centos7:vars" => { "os" => "centos7" },
       "centos:children" => ["centos65", "centos7"]
+
     }
   end  
 

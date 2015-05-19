@@ -1,0 +1,29 @@
+---
+- name: "Python | Install dependencies"
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - wget
+    - curl
+    - zlib-devel
+    - sqlite-devel
+    - ncurses-devel
+    - readline-devel
+    - openssl-devel
+    - bzip2-devel
+    - tk-devel
+    - gdbm-devel
+    - libpcap-devel
+    - xz-devel
+
+- name: "Python | Download Python"
+  get_url: url={{python_url}} dest={{python_archive_path}}
+
+- name: "Python | Extract Python Source"
+  unarchive: src={{python_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{python_source_path}}
+
+- name: "Python | Build Python"
+  script: build_python.sh creates={{python_prefix_path}}
+  environment:
+    ROOT: "{{python_source_path}}"
+    PREFIX: "{{python_prefix_path}}"

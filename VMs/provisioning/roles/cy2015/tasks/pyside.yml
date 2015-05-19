@@ -1,0 +1,22 @@
+---
+- name: PySide | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - git
+    - cmake
+    - rpmdevtools
+    - libxml2-devel
+    - libxslt-devel
+
+- name: PySide | Clone PySide Setup repo
+  git: repo={{pyside_url}} dest={{pyside_source_path}} update=no
+
+- name: PySide | Build PySide
+  script: build_pyside.sh creates={{pyside_prefix_path}}
+  environment:
+    ROOT: "{{pyside_source_path}}"
+    PREFIX: "{{pyside_prefix_path}}"
+    QT_PREFIX: "{{qt_prefix_path}}"
+    PYTHON_PREFIX: "{{python_prefix_path}}"
+

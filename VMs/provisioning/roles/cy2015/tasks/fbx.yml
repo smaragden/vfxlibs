@@ -1,0 +1,17 @@
+- name: fbx | Install Dependencies
+  sudo: yes
+  yum: name={{item}} state=present
+  with_items:
+    - expect
+
+- name: fbx | Download fbx 
+  get_url: url={{fbx_url}} dest={{fbx_archive_path}}
+
+- name: fbx | Extract fbx Source
+  unarchive: src={{fbx_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{fbx_source_path}}
+
+- name: fbx | Install FBX
+  shell: "{{item}}"
+  with_items:
+    - "mkdir -p {{fbx_prefix_path}}"
+    - "yes 'yes' | {{prefix_root}}/SOURCES/fbx20160_fbxsdk_linux {{fbx_prefix_path}}"

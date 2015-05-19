@@ -1,0 +1,44 @@
+- name: "OpenVDB | Install dependencies"
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - epydoc
+    - doxygen
+
+- name: openvdb | Download openvdb 
+  get_url: url={{openvdb_url}} dest={{openvdb_archive_path}}
+
+- name: openvdb | Extract openvdb Source
+  unarchive: src={{openvdb_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{openvdb_source_path}}
+
+- name: "openvdb | Build openvdb"
+  script: build_openvdb.sh creates={{openvdb_prefix_path}}
+  environment:
+    ROOT: "{{openvdb_source_path}}"
+    DESTDIR: "{{openvdb_prefix_path}}"
+    BOOST_INCL_DIR: "{{boost_include_path}}"
+    BOOST_LIB_DIR: "{{boost_prefix_path}}/lib"
+    BOOST_LIB: "-lboost_iostreams-gcc48-mt-1_55 -lboost_system-gcc48-mt-1_55"
+    BOOST_THREAD_LIB: "-lboost_thread-gcc48-mt-1_55"
+    EXR_INCL_DIR: "{{openexr_prefix_path}}/include"
+    EXR_LIB_DIR: "{{openexr_prefix_path}}/lib"
+    ILMBASE_INCL_DIR: "{{ilmbase_prefix_path}}/include -I{{ilmbase_prefix_path}}/include/OpenEXR" #HACK!
+    ILMBASE_LIB_DIR: "{{ilmbase_prefix_path}}/lib"
+    BLOSC_INCL_DIR: ""
+    TBB_INCL_DIR: "{{tbb_prefix_path}}/include"
+    TBB_LIB_DIR: "{{tbb_prefix_path}}/lib/intel64/gcc4.4"
+    TBB_LIB: "-ltbb"
+    CONCURRENT_MALLOC_LIB: "-ltbbmalloc_proxy -ltbbmalloc"
+    CONCURRENT_MALLOC_LIB_DIR: "{{tbb_prefix_path}}/lib/intel64/gcc4.4"
+    CPPUNIT_INCL_DIR: ""
+    LOG4CPLUS_INCL_DIR: ""
+    GLFW_INCL_DIR: ""
+    PYTHON_VERSION: "2.7"
+    PYTHON_INCL_DIR: "{{python_prefix_path}}/include/python$(PYTHON_VERSION)"
+    PYTHON_LIB_DIR: "{{python_prefix_path}}/lib"
+    PYTHON_LIB: "-lpython$(PYTHON_VERSION)"
+    BOOST_PYTHON_LIB_DIR: "{{boost_prefix_path}}/lib"
+    BOOST_PYTHON_LIB: "-lboost_python-gcc48-mt-1_55"
+    NUMPY_INCL_DIR: "{{python_prefix_path}}/lib/python2.7/site-packages/numpy/core/include/numpy"
+    EPYDOC: "epydoc"
+    DOXYGEN: "doxygen"

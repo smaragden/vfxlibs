@@ -1,0 +1,25 @@
+---
+- name: OpenEXR | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - autoconf
+    - automake
+    - libtool
+
+- name: OpenEXR | Download OpenEXR 
+  get_url: url={{openexr_url}} dest={{openexr_archive_path}}
+
+- name: OpenEXR | Extract OpenEXR Source
+  unarchive: src={{openexr_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates={{openexr_source_path}}
+
+- name: OpenEXR | Build OpenEXR
+  script: build_openexr.sh creates={{openexr_prefix_path}}
+  environment:
+    ROOT: "{{openexr_source_path}}"
+    ILMBASE_PREFIX: "{{ilmbase_prefix_path}}"
+    OPENEXR_PREFIX: "{{openexr_prefix_path}}"
+    BOOST_PREFIX: "{{boost_prefix_path}}"
+    BOOST_INCLUDE_PATH: "{{boost_include_path}}"
+    BOOST_PYTHON_LIBRARY: "{{boost_python_lib}}"
+    PYTHON_PREFIX: "{{python_prefix_path}}"

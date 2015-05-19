@@ -1,0 +1,86 @@
+prefix_root: /tmp/VFXREFPLAT
+
+# GCC
+gcc_rpms:
+  - ftp://bo.mirror.garr.it/pub/1/slc/centos/7.0.1406/os/x86_64/Packages/gcc-4.8.2-16.el7.x86_64.rpm
+  - ftp://bo.mirror.garr.it/pub/1/slc/centos/7.0.1406/os/x86_64/Packages/gcc-c++-4.8.2-16.el7.x86_64.rpm
+  - ftp://bo.mirror.garr.it/pub/1/slc/centos/7.0.1406/os/x86_64/Packages/cpp-4.8.2-16.el7.x86_64.rpm
+  - ftp://bo.mirror.garr.it/pub/1/slc/centos/7.0.1406/os/x86_64/Packages/libstdc++-devel-4.8.2-16.el7.x86_64.rpm
+
+# PYTHON
+python_version: 2.7.9
+python_url: "https://www.python.org/ftp/python/{{python_version}}/Python-{{python_version}}.tgz"
+python_archive_path: "{{prefix_root}}/SOURCES/Python-{{python_version}}.tgz"
+python_source_path: "{{prefix_root}}/SOURCES/Python-{{python_version}}"
+python_prefix_path: "{{prefix_root}}/BUILDS/CY2015/python/{{python_version}}"
+
+# QT
+qt_url: "https://download.qt.io/archive/qt/4.8/4.8.5/qt-everywhere-opensource-src-4.8.5.tar.gz"
+qt_archive_path: "{{prefix_root}}/SOURCES/qt-everywhere-opensource-src-4.8.5.tar.gz"
+qt_source_path: "{{prefix_root}}/SOURCES/qt-everywhere-opensource-src-4.8.5"
+qt_prefix_path: "{{prefix_root}}/BUILDS/CY2015/qt/4.8.5"
+
+# PYSIDE
+pyside_url: "https://github.com/PySide/pyside-setup.git"
+pyside_source_path: "{{prefix_root}}/SOURCES/pyside-setup"
+pyside_prefix_path: "{{prefix_root}}/BUILDS/CY2015/pyside/1.3.0"
+
+# BOOST
+boost_url: "http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.gz/download"
+boost_archive_path: "{{prefix_root}}/SOURCES/boost_1_55_0.tar.gz"
+boost_source_path: "{{prefix_root}}/SOURCES/boost_1_55_0"
+boost_prefix_path: "{{prefix_root}}/BUILDS/CY2015/boost/1.55.0"
+boost_include_path: "{{prefix_root}}/BUILDS/CY2015/boost/1.55.0/include/boost-1_55"
+boost_python_lib: "boost_python-gcc48-mt-1_55"
+
+# ILMBASE / OPENEXR
+openexr_version: 2.2.0
+openexr_url: "https://github.com/openexr/openexr/archive/v2.2.0.tar.gz"
+openexr_archive_path: "{{prefix_root}}/SOURCES/openexr-2.2.0.tar.gz"
+openexr_source_path: "{{prefix_root}}/SOURCES/openexr-2.2.0"
+ilmbase_prefix_path: "{{prefix_root}}/BUILDS/CY2015/ilmbase/2.2.0"
+openexr_prefix_path: "{{prefix_root}}/BUILDS/CY2015/openexr/2.2.0"
+
+# OCIO
+ocio_url: "https://github.com/imageworks/OpenColorIO/archive/v1.0.9.tar.gz"
+ocio_archive_path: "{{prefix_root}}/SOURCES/ocio-1.0.9.tar.gz"
+ocio_source_path: "{{prefix_root}}/SOURCES/OpenColorIO-1.0.9"
+ocio_prefix_path: "{{prefix_root}}/BUILDS/CY2015/ocio/1.0.9"
+
+# OIIO
+oiio_url: "https://github.com/OpenImageIO/oiio/archive/Release-1.5.15.tar.gz"
+oiio_archive_path: "{{prefix_root}}/SOURCES/oiio-1.5.15.tar.gz"
+oiio_source_path: "{{prefix_root}}/SOURCES/oiio-Release-1.5.15"
+oiio_prefix_path: "{{prefix_root}}/BUILDS/CY2015/oiio/1.5.15"
+
+# HDF5
+hdf5_url: "http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.14.tar.gz"
+hdf5_archive_path: "{{prefix_root}}/SOURCES/hdf5-1.8.14.tar.gz"
+hdf5_source_path: "{{prefix_root}}/SOURCES/hdf5-1.8.14"
+hdf5_prefix_path: "{{prefix_root}}/BUILDS/CY2015/hdf5/1.8.14"
+
+# ALEMBIC
+alembic_url: "https://github.com/alembic/alembic/archive/1.5.8.tar.gz"
+alembic_archive_path: "{{prefix_root}}/SOURCES/alembic-1.5.8.tar.gz"
+alembic_source_path: "{{prefix_root}}/SOURCES/alembic-1.5.8"
+alembic_prefix_path: "{{prefix_root}}/BUILDS/CY2015/alembic/1.5.8"
+
+# TBB
+tbb_url: "https://www.threadingbuildingblocks.org/sites/default/files/software_releases/linux/tbb43_20150424oss_lin.tgz"
+tbb_archive_path: "{{prefix_root}}/SOURCES/tbb-4.3.5.tar.gz"
+tbb_source_path: "{{prefix_root}}/SOURCES/tbb43_20150424oss"
+tbb_prefix_path: "{{prefix_root}}/BUILDS/CY2015/tbb/4.3.5"
+
+
+# OPEN VDB
+openvdb_url: "https://github.com/dreamworksanimation/openvdb/archive/v3.0.0.tar.gz"
+openvdb_archive_path: "{{prefix_root}}/SOURCES/openvdb-3.0.0.tar.gz"
+openvdb_source_path: "{{prefix_root}}/SOURCES/openvdb-3.0.0"
+openvdb_prefix_path: "{{prefix_root}}/BUILDS/CY2015/openvdb/3.0.0"
+
+# FBX
+fbx_url: "http://images.autodesk.com/adsk/files/fbx20160_fbxsdk_linux.tar.gz"
+fbx_archive_path: "{{prefix_root}}/SOURCES/fbx20160_fbxsdk_linux.tar.gz"
+fbx_source_path: "{{prefix_root}}/SOURCES/fbx-2016"
+fbx_prefix_path: "{{prefix_root}}/BUILDS/CY2015/fbx/2016"
+

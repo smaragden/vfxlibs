@@ -1,5 +1,0 @@
-- name: HDF5 | Download HDF5 
-  get_url: url=http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.14.tar.gz dest={{prefix_root}}/SOURCES/hdf5-1.8.14.tar.gz
-
-- name: HDF5 | Extract HDF5 Source
-  unarchive: src="{{prefix_root}}/SOURCES/hdf5-1.8.14.tar.gz" dest="{{prefix_root}}/SOURCES/" copy=no creates="{{prefix_root}}/SOURCES/hdf5-1.8.14"

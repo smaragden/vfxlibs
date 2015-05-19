@@ -1,0 +1,31 @@
+---
+- name: QT | Install Dependencies
+  sudo: yes
+  yum: name={{item}} state=present
+  with_items:
+    - libXext-devel
+    - libXtst-devel
+    - libX11-devel
+    - mesa-libGL-devel
+    - openssl-devel
+    - gtk2-devel
+    - gstreamer-devel
+    - gstreamer1-plugins-base-devel
+    - phonon-devel
+    - libxcb 
+    - libxcb-devel 
+    - xcb-util 
+    - xcb-util-devel
+    - alsa-lib-devel
+
+- name: QT | Download QT 
+  get_url: url="{{qt_url}}" dest="{{qt_archive_path}}"
+
+- name: QT | Extract QT Source
+  unarchive: src="{{qt_archive_path}}" dest="{{prefix_root}}/SOURCES/" copy=no creates="{{qt_source_path}}"
+
+- name: QT | Build QT
+  script: build_qt.sh creates="{{qt_prefix_path}}"
+  environment:
+    ROOT: "{{qt_source_path}}"
+    PREFIX: "{{qt_prefix_path}}"

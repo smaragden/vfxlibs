@@ -1,0 +1,22 @@
+- name: Create Directory Structure
+  file: dest={{ item }} state=directory
+  with_items:
+    - "{{ prefix_root }}/SOURCES"
+    - "{{ prefix_root }}/BUILDS/CY2014"
+    - "{{ prefix_root }}/BUILDS/CY2015"
+
+- include: gcc.yml
+- include: python.yml
+- include: qt.yml
+- include: pyside.yml
+- include: boost.yml
+- include: openexr.yml
+- include: ocio.yml
+- include: oiio.yml
+- include: hdf5.yml
+- include: alembic.yml
+- include: tbb.yml
+- include: openvdb.yml
+- include: fbx.yml
+- name: Create Archive
+  command: tar czf /DATA/CY2015.tar.gz -C {{prefix_root}}/BUILDS/CY2015 .

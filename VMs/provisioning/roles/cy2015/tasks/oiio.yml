@@ -1,0 +1,40 @@
+---
+- name: OIIO | Install dependencies
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - libjpeg-turbo-devel
+    - libjpeg-turbo-static
+    - libtiff-devel
+    - libtiff-static
+    - libpng-devel
+    - libpng-static
+    - glew-devel
+    - python-devel
+
+- name: OIIO | Download OIIO 
+  get_url: url={{oiio_url}} dest={{oiio_archive_path}}
+
+- name: OIIO | Extract OIIO Source
+  unarchive: src={{oiio_archive_path}} dest="{{prefix_root}}/SOURCES" copy=no creates={{oiio_source_path}}
+
+- name: OIIO | Build OIIO
+  script: build_oiio.sh creates={{oiio_prefix_path}}
+  environment:
+    ROOT: "{{oiio_source_path}}"
+    PREFIX: "{{oiio_prefix_path}}"
+    BOOST_PREFIX: "{{boost_prefix_path}}"
+    ILMBASE_PREFIX: "{{ilmbase_prefix_path}}"
+    OPENEXR_PREFIX: "{{openexr_prefix_path}}"
+    OCIO_PREFIX: "{{ocio_prefix_path}}"
+    PYTHON_PREFIX: "{{python_prefix_path}}"
+
+- name: OIIO | Build OCIO tools with OIIO
+  script: build_ocio.sh {{python_prefix_path}}
+  environment:
+    ROOT: "{{ocio_source_path}}"
+    PREFIX: "{{ocio_prefix_path}}"
+    OCIO_BUILD_APPS: "ON"
+    OCIO_BUILD_SHARED: "ON"
+    OIIO_PREFIX: "{{oiio_prefix_path}}"
+    PYTHON_PREFIX: "{{python_prefix_path}}"
