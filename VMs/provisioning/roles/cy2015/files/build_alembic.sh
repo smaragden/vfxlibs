@@ -1,8 +1,8 @@
 #!/bin/bash
 mkdir -p $ROOT/BUILD
 cd $ROOT/BUILD
-export CFLAGS="-fPIC"
-export CXXFLAGS="-fPIC"
+export CFLAGS="-fPIC -std=c++11 -DALEMBIC_LIB_USES_BOOST"
+export CXXFLAGS="-fPIC -std=c++11 -DALEMBIC_LIB_USES_BOOST"
 export LDFLAGS="-fPIC"
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 -D BOOST_ROOT=${BOOST_PREFIX} \
@@ -24,9 +24,9 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 -D PYTHON_INCLUDE_DIR=${PYTHON_PREFIX}/include/python2.7 \
 -D ALEMBIC_PYTHON_LIBRARY=${PYTHON_PREFIX}/lib/libpython2.7.so \
 -D LIBPYTHON_VERSION="2.7" ..;
-make
-make install
+#make
+#make install
 
-mv $PREFIX/alembic-1.5.8/* $PREFIX/
-rm -rf $PREFIX/alembic-1.5.8
+#mv $PREFIX/alembic-1.5.8/* $PREFIX/
+#rm -rf $PREFIX/alembic-1.5.8
 

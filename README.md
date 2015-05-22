@@ -8,6 +8,11 @@ After having to build alot of different libraries that is used in the vfx indust
 I use the cfx reference platform as guidlines to what libraries to build. As we use Centos 7 that's what initially is implemented.
 But it should be fairly easy to change that. What needs to be done then is to make sure all system dependencies are met.
 
+Requirements
+------------
+- [Vagrant](http://www.vagrantup.com) 
+- [Ansible](http://www.ansible.com)
+
 Libraries
 ---------
 - alembic 1.5.8
@@ -30,11 +35,16 @@ To Do's
 - Change rpath to relative paths on all libs and exrcutables
 - MAke it simpler to choose build os
 
+Notes
+-----
+Alembic is built in c++11 mode but that should probably be optional.
+
 How To
 ------
 Initial run:
 ```
-shell$ cd VMs
+shell$ git clone https://github.com/smaragden/vfxlibs.git
+shell$ cd vfxlibs/VMs
 shell$ vagrant up centos7
 ```
 
