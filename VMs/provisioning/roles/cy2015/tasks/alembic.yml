@@ -12,7 +12,5 @@
     PREFIX: "{{alembic_prefix_path}}"
     BOOST_PREFIX: "{{boost_prefix_path}}"
     ILMBASE_PREFIX: "{{ilmbase_prefix_path}}"
-    OPENEXR_PREFIX: "{{openexr_prefix_path}}"
-    OCIO_PREFIX: "{{ocio_prefix_path}}"
     PYTHON_PREFIX: "{{python_prefix_path}}"
     HDF5_PREFIX: "{{hdf5_prefix_path}}"

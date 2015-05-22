@@ -54,7 +54,7 @@ oiio_source_path: "{{prefix_root}}/SOURCES/oiio-Release-1.5.15"
 oiio_prefix_path: "{{prefix_root}}/BUILDS/CY2015/oiio/1.5.15"
 
 # HDF5
-hdf5_url: "http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.14.tar.gz"
+hdf5_url: "https://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.14/src/hdf5-1.8.14.tar.gz"
 hdf5_archive_path: "{{prefix_root}}/SOURCES/hdf5-1.8.14.tar.gz"
 hdf5_source_path: "{{prefix_root}}/SOURCES/hdf5-1.8.14"
 hdf5_prefix_path: "{{prefix_root}}/BUILDS/CY2015/hdf5/1.8.14"

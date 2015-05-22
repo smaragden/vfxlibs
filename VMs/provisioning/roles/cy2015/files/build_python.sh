@@ -11,6 +11,8 @@ curl https://bootstrap.pypa.io/get-pip.py | python
 pip install wheel
 pip install numpy
 pip install epydoc
+pip install virtualenv
+pip install virtualenvwrapper
 grep -rnhl ${PREFIX} -e "!${PREFIX}/bin/python" | xargs sed -i "s@!${PREFIX}/bin/python@!/usr/bin/env python@g"
 
 grep -q -F "export PATH=${PREFIX}/bin:\$PATH" ~/.bashrc || echo "export PATH=${PREFIX}/bin:\$PATH" >> ~/.bashrc

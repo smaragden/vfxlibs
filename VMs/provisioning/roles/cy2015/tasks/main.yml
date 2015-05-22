@@ -1,9 +1,12 @@
+- name: Starting Build Process
+  debug: msg="Building VFXLIB for {{ansible_distribution}}{{ansible_distribution_major_version}}"
+
 - name: Create Directory Structure
   file: dest={{ item }} state=directory
   with_items:
-    - "{{ prefix_root }}/SOURCES"
-    - "{{ prefix_root }}/BUILDS/CY2014"
-    - "{{ prefix_root }}/BUILDS/CY2015"
+  - "{{ prefix_root }}/SOURCES"
+  - "{{ prefix_root }}/BUILDS/CY2014"
+  - "{{ prefix_root }}/BUILDS/CY2015"
 
 - include: gcc.yml
 - include: python.yml
@@ -19,4 +22,4 @@
 - include: openvdb.yml
 - include: fbx.yml
 - name: Create Archive
-  command: tar czf /DATA/CY2015.tar.gz -C {{prefix_root}}/BUILDS/CY2015 .
+  shell: shopt -s nullglob && tar -C {{prefix_root}}/BUILDS/CY2015 -zcvf /DATA/CY2015_{{ansible_distribution}}{{ansible_distribution_major_version}}.tar.gz .[^.]* ..?* * && shopt -u nullglob chdir="{{prefix_root}}/BUILDS/CY2015"
