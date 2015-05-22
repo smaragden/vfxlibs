@@ -10,24 +10,25 @@ But it should be fairly easy to change that. What needs to be done then is to ma
 
 Requirements
 ------------
+- [VirtualBox](https://www.virtualbox.org)
 - [Vagrant](http://www.vagrantup.com) 
 - [Ansible](http://www.ansible.com)
 
 Libraries
 ---------
-- alembic 1.5.8
-- boost 1.55.0
-- fbx 2016
-- hdf5 1.8.14
-- ocio 1.0.9
-- oiio 1.5.15
-- ilmbase 2.2.0
-- openexr 2.2.0
-- openvdb 3.0.0
-- pyside 1.3.0
-- python 2.7.9
-- qt 4.8.5
-- tbb 4.3.5
+- [alembic 1.5.8](https://github.com/alembic/alembic)
+- [boost 1.55.0](http://www.boost.org)
+- [fbx 2016](http://www.autodesk.com/products/fbx/overview)
+- [hdf5 1.8.14](https://www.hdfgroup.org/HDF5/)
+- [ocio 1.0.9](http://opencolorio.org)
+- [oiio 1.5.15](https://sites.google.com/site/openimageio/home)
+- [ilmbase 2.2.0](https://github.com/openexr/openexr)
+- [openexr 2.2.0](https://github.com/openexr/openexr)
+- [openvdb 3.0.0](http://www.openvdb.org)
+- [pyside 1.3.0](http://www.pyside.org)
+- [python 2.7.9](https://www.python.org)
+- [qt 4.8.5](http://www.qt.io/developers/)
+- [tbb 4.3.5](https://www.threadingbuildingblocks.org)
 
 To Do's
 -------
