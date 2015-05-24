@@ -151,7 +151,7 @@ def create_rez_package(lib, libs_root, rez_root):
 
     # Create rez folder structure
     try:
-        os.makedirs(os.path.join(directory, "Linux"))
+        os.makedirs(os.path.join(directory, BASE_VARIANT))
     except:
         pass
 
@@ -169,7 +169,7 @@ def create_rez_package(lib, libs_root, rez_root):
                 p_file.write("\n")
 
         p_file.write("variants:\n")
-        p_file.write("- [ Linux ]\n\n")
+        p_file.write("- [ {0} ]\n\n".format(BASE_VARIANT))
         if lib_name in LIB_CONFIGS:
             reqs = LIB_CONFIGS[lib_name].get("commands", [])
             if reqs:
@@ -180,7 +180,7 @@ def create_rez_package(lib, libs_root, rez_root):
 
     # Create link to library
 
-    os.symlink(os.path.join(libs_root, lib_name, lib_version), os.path.join(directory, "Linux", "ext"))
+    os.symlink(os.path.join(libs_root, lib_name, lib_version), os.path.join(directory, BASE_VARIANT, "ext"))
 
 
 def main(): #TODO: Put everythin in a class so we don't need to pass everythin around.
