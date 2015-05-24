@@ -4,7 +4,9 @@ import sys
 import os
 import argparse
 import tarfile
+import shutil
 
+BASE_VARIANT = "Linux" #TODO: Probably change this to a parameter with "Linux" as default value
 LIB_CONFIGS = {
     "pyside": {
         "requires": ["python"],
@@ -110,9 +112,10 @@ def validate_archive(archive):
 
 
 def validate_path(args, path):
-    if not os.listdir(path) == [] and not args.force:
-        raise (Exception(path + " is not an empty. --force ?"))
-        return 1
+    if os.path.exists(path):
+        if not os.listdir(path) == [] and not args.force:
+            raise (Exception(path + " is not an empty. --force ?"))
+            return 1
     return 0
 
 
@@ -124,6 +127,11 @@ def extract_archive(archive, libs_root):
             elems = path.split(os.sep)
             if len(elems) > 1:
                 dirs.add(tuple(elems[:2]))
+        for directory in map(lambda x:os.path.join(libs_root, x[0]), dirs):
+            if os.path.isdir(directory):
+                print "Removing dir:", directory
+                shutil.rmtree(directory)
+        print "Extracting:", archive, "to", libs_root
         tar.extractall(libs_root)
     return dirs
 
@@ -140,11 +148,14 @@ def create_rez_package(lib, libs_root, rez_root):
 
     directory = os.path.join(rez_root, lib_name, lib_version)
     package_file = os.path.join(directory, "package.yaml")
+
+    # Create rez folder structure
     try:
-        os.makedirs(os.path.join(rez_root, lib_name, lib_version))
+        os.makedirs(os.path.join(directory, "Linux"))
     except:
         pass
 
+    # Create rez package file
     with file(package_file, 'w') as p_file:
         p_file.write("config_version : 0\n\n")
         p_file.write("name: {0}\n\n".format(lib_name))
@@ -167,8 +178,12 @@ def create_rez_package(lib, libs_root, rez_root):
                     p_file.write("- {0}\n".format(req))
                 p_file.write("\n")
 
+    # Create link to library
 
-def main():
+    os.symlink(os.path.join(libs_root, lib_name, lib_version), os.path.join(directory, "Linux", "ext"))
+
+
+def main(): #TODO: Put everythin in a class so we don't need to pass everythin around.
     # Setup argument parsing
     parser = argparse.ArgumentParser(description='Generate rez config for vfxlibs.')
     parser.add_argument('--vfxlibs-archive', type=str, default="")
