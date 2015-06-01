@@ -39,7 +39,8 @@ To Do's
 Notes
 -----
 - Alembic is built in c++11 mode but that should probably be optional.
-- This is not a strict translation of the vfx platforms specification, but a collection of libs that fits my needs.
+- This is not a strict translation of the vfx platforms specification, but a collection of libs that fits my needs. In the future i might have this repo match vfx platform rather than my own preferences.
+
 How To
 ------
 Initial run:
