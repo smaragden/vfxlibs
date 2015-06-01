@@ -8,6 +8,10 @@ After having to build alot of different libraries that is used in the vfx indust
 I use the vfx reference platform as guidlines to what libraries to build. As we use Centos 7 that's what initially is implemented.
 But it should be fairly easy to change that. What needs to be done then is to make sure all system dependencies are met.
 
+Supported Platform
+------------------
+- Only Centos for now
+
 Requirements
 ------------
 - [VirtualBox](https://www.virtualbox.org)
