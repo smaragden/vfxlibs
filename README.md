@@ -51,10 +51,10 @@ Initial run:
 ```
 shell$ git clone https://github.com/smaragden/vfxlibs.git
 shell$ cd vfxlibs/VMs
-shell$ vagrant up centos7
+shell$ vagrant up
 ```
 
 Rerun build process:
 ```
-shell$ vagrant provision centos7
+shell$ vagrant provision
 ```
