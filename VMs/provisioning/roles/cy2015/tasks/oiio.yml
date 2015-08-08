@@ -30,7 +30,7 @@
     PYTHON_PREFIX: "{{python_prefix_path}}"
 
 - name: OIIO | Build OCIO tools with OIIO
-  script: build_ocio.sh {{python_prefix_path}}
+  script: build_ocio.sh
   environment:
     ROOT: "{{ocio_source_path}}"
     PREFIX: "{{ocio_prefix_path}}"
@@ -38,3 +38,4 @@
     OCIO_BUILD_SHARED: "ON"
     OIIO_PREFIX: "{{oiio_prefix_path}}"
     PYTHON_PREFIX: "{{python_prefix_path}}"
+    OCIO_BUILD_PYGLUE: "ON"

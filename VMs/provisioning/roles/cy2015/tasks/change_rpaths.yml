@@ -1,0 +1,15 @@
+chrpath -r '$ORIGIN/../lib' /tmp/VFXREFPLAT/BUILDS/CY2015/oiio/1.5.17/bin/oiiotool
+
+# PYTHON
+python2.7
+
+# OIIO
+iconvert
+idiff
+igrep
+iinfo
+iv
+maketx
+oiiotool
+
+OCIO

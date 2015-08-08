@@ -5,6 +5,12 @@
 - name: Alembic | Extract Alembic Source
   unarchive: src={{alembic_archive_path}} dest="{{prefix_root}}/SOURCES/" copy=no creates="{{alembic_source_path}}"
 
+- name: Alembic | Copy patch
+  copy: src=alembic_custom_python_include.patch dest={{alembic_source_path}}
+  
+- name: Alembic | apply patch
+  patch: src="{{alembic_source_path}}/alembic_custom_python_include.patch" remote_src=True basedir={{alembic_source_path}} strip=1
+
 - name: "Alembic | Build Alembic"
   script: build_alembic.sh creates={{alembic_prefix_path}}
   environment:

@@ -1,0 +1,17 @@
+- name: QT | Install Dependencies
+  sudo: yes
+  yum: name={{item}} state=present
+  with_items:
+    - libXext-devel
+    - libXtst-devel
+    - libX11-devel
+    - mesa-libGL-devel
+    - openssl-devel
+    - gtk2-devel
+    - gstreamer-plugins-base-devel
+    - phonon-devel
+    - libxcb 
+    - libxcb-devel 
+    - xcb-util 
+    - xcb-util-devel
+    - alsa-lib-devel

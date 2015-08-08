@@ -1,0 +1,119 @@
+{
+  "ocio": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH", 
+      "export PYTHONPATH=:!ROOT!/ext/lib/python2.7/site-packages:$PYTHONPATH"
+    ], 
+    "requires": [
+      "oiio"
+    ]
+  }, 
+  "pyside": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH", 
+      "export PYTHONPATH=:!ROOT!/ext/lib/python2.7/site-packages:$PYTHONPATH"
+    ], 
+    "requires": [
+      "qt", 
+      "python"
+    ]
+  }, 
+  "openexr": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
+    ], 
+    "requires": [
+      "ilmbase"
+    ]
+  }, 
+  "fbx": {
+    "commands": [
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib/gcc4/x64/release:$LD_LIBRARY_PATH"
+    ], 
+    "requires": []
+  }, 
+  "ilmbase": {
+    "commands": [
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH", 
+      "export PYTHONPATH=:!ROOT!/ext/lib/python2.7/site-packages:$PYTHONPATH"
+    ], 
+    "requires": [
+      "python", 
+      "boost"
+    ]
+  }, 
+  "tbb": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
+    ], 
+    "requires": []
+  }, 
+  "oiio": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH", 
+      "export PYTHONPATH=:!ROOT!/ext/lib/python/site-packages:$PYTHONPATH"
+    ], 
+    "requires": [
+      "python", 
+      "boost", 
+      "openexr"
+    ]
+  }, 
+  "qt": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
+    ], 
+    "requires": []
+  }, 
+  "hdf5": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
+    ], 
+    "requires": []
+  }, 
+  "python": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
+    ], 
+    "requires": [], 
+    "post_install_hook": "python_post_install"
+  }, 
+  "boost": {
+    "commands": [
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
+    ], 
+    "requires": []
+  }, 
+  "alembic": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export PYTHONPATH=:!ROOT!/ext/lib:$PYTHONPATH"
+    ], 
+    "requires": [
+      "python", 
+      "boost", 
+      "ilmbase", 
+      "hdf5"
+    ]
+  }, 
+  "openvdb": {
+    "commands": [
+      "export PATH=!ROOT!/ext/bin:$PATH", 
+      "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH", 
+      "export PYTHONPATH=:!ROOT!/ext/python/lib/python2.7:$PYTHONPATH"
+    ], 
+    "requires": [
+      "python", 
+      "boost", 
+      "ilmbase"
+    ]
+  }
+}

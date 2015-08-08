@@ -8,14 +8,27 @@
     - rpmdevtools
     - libxml2-devel
     - libxslt-devel
+    - python-sphinx
+    - graphviz
 
-- name: PySide | Clone PySide Setup repo
-  git: repo={{pyside_url}} dest={{pyside_source_path}} update=no
+#- name: PySide | Clone PySide BuildScript repo
+#  git: repo={{pyside_url}} dest={{pyside_source_path}} update=no
+
+- name: PySide | Create Source Directory
+  file: dest={{pyside_source_path}} state=directory
+
+- name: PySide | Clone PySide repos
+  git: repo={{item.url}} dest="{{item.dest}}" version={{item.tag}} update=no
+  with_items:
+    - { url: "{{shiboken_url}}", dest: "{{shiboken_source_path}}", tag: "{{pyside_tag}}" }
+    - { url: "{{pyside_url}}", dest: "{{pyside_source_path}}", tag: "{{pyside_tag}}" }
+    - { url: "{{pyside_tools_url}}", dest: "{{pyside_tools_source_path}}", tag: "{{pyside_tools_tag}}" }
+
 
 - name: PySide | Build PySide
   script: build_pyside.sh creates={{pyside_prefix_path}}
   environment:
-    ROOT: "{{pyside_source_path}}"
+    ROOT: "{{pyside_source_root}}"
     PREFIX: "{{pyside_prefix_path}}"
     QT_PREFIX: "{{qt_prefix_path}}"
     PYTHON_PREFIX: "{{python_prefix_path}}"

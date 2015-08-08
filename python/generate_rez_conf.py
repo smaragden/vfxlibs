@@ -2,147 +2,30 @@ __author__ = 'fredrik.brannbacka'
 
 import sys
 import os
-import argparse
-import tarfile
+from optparse import OptionParser
 import shutil
+from vfxlibs import *
+import package_callbacks
+import json
 
-BASE_VARIANT = "Linux" #TODO: Probably change this to a parameter with "Linux" as default value
-LIB_CONFIGS = {
-    "pyside": {
-        "requires": ["python"],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export PYTHONPATH=:!ROOT!/ext/lib/python2.7/site-packages:$PYTHONPATH"
-        ]
-    },
-    "openvdb": {
-        "requires": ["python", "boost", "ilmbase"],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH",
-            "export PYTHONPATH=:!ROOT!/ext/python/lib/python2.7:$PYTHONPATH"
-        ]
-    },
-    "hdf5": {
-        "requires": [],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
-        ]
-    },
-    "oiio": {
-        "requires": ["python", "boost", "openexr"],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH",
-            "export PYTHONPATH=:!ROOT!/ext/lib/python/site-packages:$PYTHONPATH"
-        ]
-    },
-    "ilmbase": {
-        "requires": ["python", "boost"],
-        "commands": [
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH",
-            "export PYTHONPATH=:!ROOT!/ext/lib/python2.7/site-packages:$PYTHONPATH"
-        ]
-    },
-    "openexr": {
-        "requires": ["ilmbase"],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
-        ]
-    },
-    "tbb": {
-        "requires": [],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
-        ]
-    },
-    "ocio": {
-        "requires": [],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH",
-            "export PYTHONPATH=:!ROOT!/ext/lib/python2.7/site-packages:$PYTHONPATH"
-        ]
-    },
-    "fbx": {
-        "requires": [],
-        "commands": ["export LD_LIBRARY_PATH=!ROOT!/ext/lib/gcc4/x64/release:$LD_LIBRARY_PATH"]
-    },
-    "alembic": {
-        "requires": ["python", "boost", "ilmbase", "hdf5"],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export PYTHONPATH=:!ROOT!/ext//mcp/usr/packages/vfxlibs/alembic/1.5.8/lib:$PYTHONPATH"
-        ]
-    },
-    "qt": {
-        "requires": [],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
-        ]
-    },
-    "python": {
-        "requires": [],
-        "commands": [
-            "export PATH=!ROOT!/ext/bin:$PATH",
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
-        ]
-    },
-    "boost": {
-        "requires": [],
-        "commands": [
-            "export LD_LIBRARY_PATH=!ROOT!/ext/lib:$LD_LIBRARY_PATH"
-        ]
-    }
-}
-
-
-def validate_archive(archive):
-    if not archive:
-        raise (Exception("You need to specify vfxlib archive."))
-        return 1
-    if not tarfile.is_tarfile(archive):
-        raise (Exception(archive + " is not an archive."))
-        return 1
-    return 0
+with open(os.path.join(os.path.dirname(__file__),"packages.json")) as data_file:
+    LIB_CONFIGS = json.loads(data_file.read())
 
 
 def validate_path(args, path):
     if os.path.exists(path):
         if not os.listdir(path) == [] and not args.force:
-            raise (Exception(path + " is not an empty. --force ?"))
+            raise (Exception(path + " is not empty. --force ?"))
             return 1
     return 0
 
-
-def extract_archive(archive, libs_root):
-    dirs = set();
-    print "Extracting libs. This will take a moment."
-    with tarfile.open(archive) as tar:
-        for path in tar.getnames():
-            elems = path.split(os.sep)
-            if len(elems) > 1:
-                dirs.add(tuple(elems[:2]))
-        for directory in map(lambda x:os.path.join(libs_root, x[0]), dirs):
-            if os.path.isdir(directory):
-                print "Removing dir:", directory
-                shutil.rmtree(directory)
-        print "Extracting:", archive, "to", libs_root
-        tar.extractall(libs_root)
-    return dirs
-
-
-def setup_rez_confs(libs, libs_root, rez_root):
+def setup_rez_confs(libs, libs_root, rez_root, base_variant):
     for lib in libs:
-        print lib
-        create_rez_package(lib, libs_root, rez_root)
+        print "Configuring: {0}-{1}".format(lib[0],lib[1])
+        create_rez_package(lib, libs_root, rez_root, base_variant)
 
 
-def create_rez_package(lib, libs_root, rez_root):
+def create_rez_package(lib, libs_root, rez_root, base_variant):
     lib_name = lib[0]
     lib_version = lib[1]
 
@@ -151,7 +34,7 @@ def create_rez_package(lib, libs_root, rez_root):
 
     # Create rez folder structure
     try:
-        os.makedirs(os.path.join(directory, BASE_VARIANT))
+        os.makedirs(os.path.join(directory, base_variant))
     except:
         pass
 
@@ -169,7 +52,7 @@ def create_rez_package(lib, libs_root, rez_root):
                 p_file.write("\n")
 
         p_file.write("variants:\n")
-        p_file.write("- [ {0} ]\n\n".format(BASE_VARIANT))
+        p_file.write("- [ {0} ]\n\n".format(base_variant))
         if lib_name in LIB_CONFIGS:
             reqs = LIB_CONFIGS[lib_name].get("commands", [])
             if reqs:
@@ -179,18 +62,30 @@ def create_rez_package(lib, libs_root, rez_root):
                 p_file.write("\n")
 
     # Create link to library
+    try:
+        os.symlink(os.path.join(libs_root, lib_name, lib_version), os.path.join(directory, base_variant, "ext"))
+    except OSError, e:
+        if e.errno == errno.EEXIST:
+            os.remove(os.path.join(directory, base_variant, "ext"))
+            os.symlink(os.path.join(libs_root, lib_name, lib_version), os.path.join(directory, base_variant, "ext"))
+    
+    try:
+        methodToCall = getattr(package_callbacks, "relocate_{0}".format(lib_name))
+        if methodToCall:
+            methodToCall(os.path.join(libs_root, lib_name, lib_version))
+    except AttributeError, e:
+        pass
+        
 
-    os.symlink(os.path.join(libs_root, lib_name, lib_version), os.path.join(directory, BASE_VARIANT, "ext"))
 
-
-def main(): #TODO: Put everythin in a class so we don't need to pass everythin around.
-    # Setup argument parsing
-    parser = argparse.ArgumentParser(description='Generate rez config for vfxlibs.')
-    parser.add_argument('--vfxlibs-archive', type=str, default="")
-    parser.add_argument('--libs-root', type=str, default="")
-    parser.add_argument('--rez-root', type=str, default="")
-    parser.add_argument('--force', action='store_true')
-    args = parser.parse_args()
+def main(): #TODO: Put everythin in a class so we don't need to pass everything around.
+    parser = OptionParser()
+    parser.add_option("-a", "--vfxlibs-archive", dest="vfxlibs_archive", help="vfxlibarchive", metavar="FILE")
+    parser.add_option("-l", "--libs-root", dest="libs_root", help="write report to FILE", type="string")
+    parser.add_option("-r", "--rez-root", dest="rez_root", help="write report to FILE", type="string")
+    parser.add_option("-f", "--force", action="store_true", dest="force")
+    parser.add_option("-b", "--base-variant", dest="base_variant", help="variant to have the packages depend on", type="string", default="linux")
+    (args, optargs) = parser.parse_args()
 
     # Validate Arguments
     if validate_archive(args.vfxlibs_archive):
@@ -202,13 +97,14 @@ def main(): #TODO: Put everythin in a class so we don't need to pass everythin a
     vfxlibs_archive = args.vfxlibs_archive
     libs_root = args.libs_root
     rez_root = args.rez_root
+    base_variant = args.base_variant
 
     # All Good, let's go
 
     # Extract the archive and return the libs
     libs = extract_archive(vfxlibs_archive, libs_root)
 
-    setup_rez_confs(libs, libs_root, rez_root)
+    setup_rez_confs(libs, libs_root, rez_root, base_variant)
 
     return 0
 

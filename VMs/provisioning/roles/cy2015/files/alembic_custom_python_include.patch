@@ -1,0 +1,41 @@
+diff --git a/python/PyAbcOpenGL/CMakeLists.txt b/python/PyAbcOpenGL/CMakeLists.txt
+index edb8f2e..05bafbe 100644
+--- a/python/PyAbcOpenGL/CMakeLists.txt
++++ b/python/PyAbcOpenGL/CMakeLists.txt
+@@ -54,7 +54,9 @@ IF ( ${CMAKE_HOST_UNIX} )
+ 
+         SET( ALEMBIC_PYTHON_ROOT "${OSX_PYTHON_ROOT}/Python" )
+     ELSE()
+-        SET( PYTHON_INCLUDE_DIR "/usr/include/${LIBPYTHON}" )
++        IF(NOT DEFINED PYTHON_INCLUDE_DIR)
++          SET( PYTHON_INCLUDE_DIR "/usr/include/${LIBPYTHON}" )
++        ENDIF()
+         IF (USE_LIB64)
+             SET( ALEMBIC_PYTHON_ROOT "/usr/lib64/${LIBPYTHON}/config" )
+         ELSE()
+@@ -113,7 +115,7 @@ IF ( Boost_PYTHON_LIBRARY AND ALEMBIC_PYTHON_LIBRARY )
+                   ${EXTERNAL_MATH_LIBS}
+                   ${ALEMBIC_PYILMBASE_PYIMATH_LIB} )
+ 
+-  INCLUDE_DIRECTORIES( "/usr/include/python${LIBPYTHON_VERSION}" "${ALEMBIC_SOURCE_DIR}/lib"
++  INCLUDE_DIRECTORIES( "${PYTHON_INCLUDE_DIR}" "${ALEMBIC_SOURCE_DIR}/lib"
+       "${ALEMBIC_SOURCE_DIR}/python/PyAbcOpenGL" )
+ 
+   ADD_LIBRARY( alembicglmodule SHARED ${CPP_FILES} )
+diff --git a/python/PyAlembic/CMakeLists.txt b/python/PyAlembic/CMakeLists.txt
+index ca54d02..f817ba2 100644
+--- a/python/PyAlembic/CMakeLists.txt
++++ b/python/PyAlembic/CMakeLists.txt
+@@ -54,8 +54,10 @@ IF ( ${CMAKE_HOST_UNIX} )
+ 
+         SET( ALEMBIC_PYTHON_ROOT "${OSX_PYTHON_ROOT}/lib" )
+     ELSE()
+-      SET( LIBPYTHON_FILE "lib${LIBPYTHON}.so" )
+-        SET( PYTHON_INCLUDE_DIR "/usr/include/${LIBPYTHON}" )
++        SET( LIBPYTHON_FILE "lib${LIBPYTHON}.so" )
++        IF(NOT DEFINED PYTHON_INCLUDE_DIR)
++          SET( PYTHON_INCLUDE_DIR "/usr/include/${LIBPYTHON}" )
++        ENDIF()
+         IF (USE_LIB64)
+             SET( ALEMBIC_PYTHON_ROOT "/usr/lib64/${LIBPYTHON}/config" )
+         ELSE()

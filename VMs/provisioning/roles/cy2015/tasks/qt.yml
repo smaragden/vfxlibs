@@ -9,15 +9,14 @@
     - mesa-libGL-devel
     - openssl-devel
     - gtk2-devel
-    - gstreamer-devel
-    - gstreamer1-plugins-base-devel
+    - gstreamer-plugins-base-devel
     - phonon-devel
     - libxcb 
     - libxcb-devel 
     - xcb-util 
     - xcb-util-devel
     - alsa-lib-devel
-
+    
 - name: QT | Download QT 
   get_url: url="{{qt_url}}" dest="{{qt_archive_path}}"
 

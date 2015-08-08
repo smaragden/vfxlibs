@@ -1,9 +1,14 @@
 #!/bin/bash
+
+cat << EOF > /tmp/VFXREFPLAT/BUILD_SCRIPTS/alembic.sh
+#!/bin/bash
 mkdir -p $ROOT/BUILD
 cd $ROOT/BUILD
-export CFLAGS="-fPIC -std=c++11 -DALEMBIC_LIB_USES_BOOST"
-export CXXFLAGS="-fPIC -std=c++11 -DALEMBIC_LIB_USES_BOOST"
+find . -name CMakeCache.txt -exec rm {} \;
+export CFLAGS="-fPIC"
+export CXXFLAGS="-fPIC"
 export LDFLAGS="-fPIC"
+export HDF5_ROOT=${HDF5_PREFIX}
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 -D BOOST_ROOT=${BOOST_PREFIX} \
 -D ILMBASE_ROOT=${ILMBASE_PREFIX} \
@@ -17,7 +22,6 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 -D HDF5_ROOT=${HDF5_PREFIX} \
 -D HDF5_DIR=${HDF5_PREFIX} \
 -D HDF5_INCLUDE_DIR=${HDF5_PREFIX}/include \
--D HDF5_INCLUDE_DIR=${HDF5_PREFIX}/include \
 -D HDF5_hdf5_LIBRARY_RELEASE=${HDF5_PREFIX}/lib/libhdf5.a \
 -D HDF5_hdf5_hl_LIBRARY_RELEASE=${HDF5_PREFIX}/lib/libhdf5_hl.a \
 -D ALEMBIC_PYTHON_ROOT=${PYTHON_PREFIX} \
@@ -29,4 +33,7 @@ make install
 
 mv $PREFIX/alembic-1.5.8/* $PREFIX/
 rm -rf $PREFIX/alembic-1.5.8
+EOF
+
+bash /tmp/VFXREFPLAT/BUILD_SCRIPTS/alembic.sh
 

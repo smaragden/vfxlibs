@@ -15,15 +15,22 @@ python_source_path: "{{prefix_root}}/SOURCES/Python-{{python_version}}"
 python_prefix_path: "{{prefix_root}}/BUILDS/CY2015/python/{{python_version}}"
 
 # QT
-qt_url: "https://download.qt.io/archive/qt/4.8/4.8.5/qt-everywhere-opensource-src-4.8.5.tar.gz"
-qt_archive_path: "{{prefix_root}}/SOURCES/qt-everywhere-opensource-src-4.8.5.tar.gz"
-qt_source_path: "{{prefix_root}}/SOURCES/qt-everywhere-opensource-src-4.8.5"
-qt_prefix_path: "{{prefix_root}}/BUILDS/CY2015/qt/4.8.5"
+qt_url: "http://download.qt.io/archive/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz"
+qt_archive_path: "{{prefix_root}}/SOURCES/qt-everywhere-opensource-src-4.8.6.tar.gz"
+qt_source_path: "{{prefix_root}}/SOURCES/qt-everywhere-opensource-src-4.8.6"
+qt_prefix_path: "{{prefix_root}}/BUILDS/CY2015/qt/4.8.6"
 
 # PYSIDE
-pyside_url: "https://github.com/PySide/pyside-setup.git"
-pyside_source_path: "{{prefix_root}}/SOURCES/pyside-setup"
-pyside_prefix_path: "{{prefix_root}}/BUILDS/CY2015/pyside/1.3.0"
+pyside_tag: 1.2.2
+pyside_source_root: "{{prefix_root}}/SOURCES/pyside"
+pyside_url: "https://github.com/PySide/pyside2.git"
+pyside_source_path: "{{prefix_root}}/SOURCES/pyside/pyside"
+shiboken_url: "https://github.com/PySide/shiboken2.git"
+shiboken_source_path: "{{prefix_root}}/SOURCES/pyside/shiboken"
+pyside_tools_url: "https://github.com/PySide/Tools.git"
+pyside_tools_source_path: "{{prefix_root}}/SOURCES/pyside/pyside-tools"
+pyside_tools_tag: "0.2.15"
+pyside_prefix_path: "{{prefix_root}}/BUILDS/CY2015/pyside/{{pyside_tag}}"
 
 # BOOST
 boost_url: "http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.gz/download"
@@ -31,7 +38,7 @@ boost_archive_path: "{{prefix_root}}/SOURCES/boost_1_55_0.tar.gz"
 boost_source_path: "{{prefix_root}}/SOURCES/boost_1_55_0"
 boost_prefix_path: "{{prefix_root}}/BUILDS/CY2015/boost/1.55.0"
 boost_include_path: "{{prefix_root}}/BUILDS/CY2015/boost/1.55.0/include/boost-1_55"
-boost_python_lib: "boost_python-gcc48-mt-1_55"
+boost_python_lib: "boost_python-gcc44-mt-1_55"
 
 # ILMBASE / OPENEXR
 openexr_version: 2.2.0
@@ -48,10 +55,10 @@ ocio_source_path: "{{prefix_root}}/SOURCES/OpenColorIO-1.0.9"
 ocio_prefix_path: "{{prefix_root}}/BUILDS/CY2015/ocio/1.0.9"
 
 # OIIO
-oiio_url: "https://github.com/OpenImageIO/oiio/archive/Release-1.5.15.tar.gz"
-oiio_archive_path: "{{prefix_root}}/SOURCES/oiio-1.5.15.tar.gz"
-oiio_source_path: "{{prefix_root}}/SOURCES/oiio-Release-1.5.15"
-oiio_prefix_path: "{{prefix_root}}/BUILDS/CY2015/oiio/1.5.15"
+oiio_url: "https://github.com/OpenImageIO/oiio/archive/Release-1.5.17.tar.gz"
+oiio_archive_path: "{{prefix_root}}/SOURCES/oiio-1.5.17.tar.gz"
+oiio_source_path: "{{prefix_root}}/SOURCES/oiio-Release-1.5.17"
+oiio_prefix_path: "{{prefix_root}}/BUILDS/CY2015/oiio/1.5.17"
 
 # HDF5
 hdf5_url: "https://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.14/src/hdf5-1.8.14.tar.gz"

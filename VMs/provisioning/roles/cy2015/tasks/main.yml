@@ -1,14 +1,26 @@
 - name: Starting Build Process
   debug: msg="Building VFXLIB for {{ansible_distribution}}{{ansible_distribution_major_version}}"
 
+- name: GCC | install the 'Development tools' package group
+  sudo: true
+  yum: name="@Development tools" state=present
+
+- name: Install System Dependencies
+  sudo: yes
+  yum: name={{item}} state=present
+  with_items:
+    - epel-release
+    - libselinux-python
+    - chrpath
+
 - name: Create Directory Structure
   file: dest={{ item }} state=directory
   with_items:
   - "{{ prefix_root }}/SOURCES"
+  - "{{ prefix_root }}/BUILD_SCRIPTS"
   - "{{ prefix_root }}/BUILDS/CY2014"
   - "{{ prefix_root }}/BUILDS/CY2015"
 
-- include: gcc.yml
 - include: python.yml
 - include: qt.yml
 - include: pyside.yml
