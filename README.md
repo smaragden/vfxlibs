@@ -58,3 +58,15 @@ Rerun build process:
 ```
 shell$ vagrant provision
 ```
+
+Install the libraries (Without rez):
+```
+cd python
+python extract_vfxlibs.py -a /path/to/vfxlibs/DATA/CY2015_CentOS6.tar.gz -l /path/to/extracted/libs
+```
+
+Install the libraries (With rez):
+```
+cd python
+python generate_rez_conf.py -a /path/to/vfxlibs/DATA/CY2015_CentOS6.tar.gz -l /path/to/extracted/libs -r /path/to/rez/conf
+```
