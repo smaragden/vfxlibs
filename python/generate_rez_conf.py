@@ -80,9 +80,9 @@ def create_rez_package(lib, libs_root, rez_root, base_variant):
 
 def main(): #TODO: Put everythin in a class so we don't need to pass everything around.
     parser = OptionParser()
-    parser.add_option("-a", "--vfxlibs-archive", dest="vfxlibs_archive", help="vfxlibarchive", metavar="FILE")
-    parser.add_option("-l", "--libs-root", dest="libs_root", help="write report to FILE", type="string")
-    parser.add_option("-r", "--rez-root", dest="rez_root", help="write report to FILE", type="string")
+    parser.add_option("-a", "--vfxlibs-archive", dest="vfxlibs_archive", help="Vfxlibs Archive", metavar="FILE")
+    parser.add_option("-l", "--libs-root", dest="libs_root", help="Location of extracted libs", type="string")
+    parser.add_option("-r", "--rez-root", dest="rez_root", help="Location of rez config", type="string")
     parser.add_option("-f", "--force", action="store_true", dest="force")
     parser.add_option("-b", "--base-variant", dest="base_variant", help="variant to have the packages depend on", type="string", default="linux")
     (args, optargs) = parser.parse_args()
